@@ -40,6 +40,12 @@ var app = {
                     .then(resp => {
                         this.allData = resp.data
                     })
+            },            computed:{
+              searchFilter(){
+                  return this.allData.filter(data=>{
+                      return data.adaParsel.match(this.searchAdaParsel)
+                  })
+              }
             },
             methods: {
                 detaylar(e) {
