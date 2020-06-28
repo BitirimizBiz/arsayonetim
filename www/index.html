@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta http-equiv="Content-Security-Policy" script-src='unsafe-inline' ;>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>Hello World</title>
+</head>
+
+<body>
+<div id="app">
+    <!--
+
+    -->
+
+    <div data-role="page" id="index" v-show="!isDetay">
+        <input type="text" class="form-control col-8 my-3 mx-auto text-center" placeholder="Ada Parsel"     v-model="searchAdaParsel">
+        <table class="table table-responsive">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ada Parsel</th>
+                <th scope="col">Resim Sayısı</th>
+                <th scope="col">İl</th>
+                <th scope="col">Mahalle</th>
+                <th scope="col">İşlem</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="data in allData" :key="data.id">
+                <td>{{data.adaParsel}}</td>
+                <td>{{data.toplam}}</td>
+                <td>{{data.il}}</td>
+                <td>{{data.mahalle}}</td>
+                <td>
+                    <a href="#detay"
+                       @click="detaylar($event)"
+                       :data-id="data.id"
+                       :data-mahalle="data.mahalle"
+                       :data-adaParsel="data.adaParsel"
+                       :data-il="data.il"
+                       class="btn btn-dark btn-sm">
+                        Bak
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div data-role="page" id="detay" v-show="isDetay">
+        <button class="btn btn-sm btn-dark mt-3 ml-3 col-4" @click="onBackButton()"><< GERİ</button>
+        <div class="container">
+            <div class="row mt-5 mb-4">
+                <div class="col-12">
+                    <h5>{{dataParsel+' - '+dataMahalle+' '+dataIl}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6" v-for="data in detayData" :data-id="data.id"
+                     :key="data.id">
+                    <img @dblclick="resimSil($event)"
+                         :data-mahalle="dataMahalle"
+                         :data-adaParsel="dataParsel"
+                         :data-il="dataIl"
+                         :data-detayId="dataDetayId"
+                         :data-id="data.id"
+                         :src="url+data.resim" width="100%"
+                         class="img-thumbnail">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-6">
+                    <input type="file" id="resimId" :value="cameraUrl" @change="resimYukle()" ref="uploadFile"
+                           style="display: none;">
+                    <input type="hidden" name="arsaId" :value="dataDetayId" ref="arsaId">
+                    <input type="hidden" name="adaParsel" :value="dataParsel" ref="adaParsel">
+                    <button class="btn btn-block btn-primary btn-sm" @click="$refs.uploadFile.click()">Resim Yükle
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button @click="resimCek()" class="btn btn-block btn-primary btn-sm">Fotoğraf Çek</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--SCRITPS-->
+<script type="text/javascript" src="cordova.js"></script>
+<script src="js/axios/dist/axios.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+</body>
+
+</html>
