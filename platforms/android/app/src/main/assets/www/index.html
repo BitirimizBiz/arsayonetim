@@ -19,7 +19,7 @@
     -->
 
     <div data-role="page" id="index" v-show="!isDetay">
-        <input type="text" class="form-control col-8 my-3 mx-auto text-center" placeholder="Ada Parsel"     v-model="searchAdaParsel">
+<input type="text" class="form-control col-8 my-3 mx-auto text-center" placeholder="Ada Parsel" v-model="searchAdaParsel">
         <table class="table table-responsive">
             <thead class="thead-dark">
             <tr>
@@ -31,7 +31,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="data in allData" :key="data.id">
+            <tr v-for="data in searchFilter" :key="data.id">
                 <td>{{data.adaParsel}}</td>
                 <td>{{data.toplam}}</td>
                 <td>{{data.il}}</td>
